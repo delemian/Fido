@@ -29,7 +29,22 @@ namespace Fido_Main.Director.Scoring
 {
   static class Matrix_Scoring
   {
-    public static FidoReturnValues GetDetectorsScore(FidoReturnValues lFidoReturnValues)
+
+        private static boolean checkVirusTotalURL(FidoReturnValues lFidoReturnValues)
+        {
+            return ((lFidoReturnValues.FireEye.VirusTotal != null) &&
+              (lFidoReturnValues.FireEye.VirusTotal.URLReturn != null) &&
+              (lFidoReturnValues.FireEye.VirusTotal.URLReturn.Count > 0));
+        }
+
+        private static boolean checkVirusTotaIP(FidoReturnValues lFidoReturnValues)
+        {
+            return ((lFidoReturnValues.FireEye.VirusTotal != null) &&
+              (lFidoReturnValues.FireEye.VirusTotal.IPReturn != null) &&
+              (lFidoReturnValues.FireEye.VirusTotal.IPReturn.Count > 0));
+        }
+
+        public static FidoReturnValues GetDetectorsScore(FidoReturnValues lFidoReturnValues)
     {
       //This section will iterate through each detector and then score each threatfeed.
       //todo: refractor each threatfeed so it's not done inside this area.
@@ -71,9 +86,7 @@ namespace Fido_Main.Director.Scoring
           lFidoReturnValues.ThreatScore += GetMpsVTHashThreatScore(lFidoReturnValues);
 
           //score VirusTotal URL
-          if ((lFidoReturnValues.FireEye.VirusTotal != null) &&
-              (lFidoReturnValues.FireEye.VirusTotal.URLReturn != null) &&
-              (lFidoReturnValues.FireEye.VirusTotal.URLReturn.Count > 0))
+          if (checkVirusTotalURL(lFidoReturnValues))
           {
             Console.WriteLine(@"Scoring FireEye/VirusTotal detector URL information.");
             var iVTPositiveUrlReturns = VirusTotalPosReturnURL(lFidoReturnValues.FireEye.VirusTotal);
@@ -84,10 +97,8 @@ namespace Fido_Main.Director.Scoring
           }
 
           //score VirusTotal IP
-          if ((lFidoReturnValues.FireEye.VirusTotal != null) &&
-              (lFidoReturnValues.FireEye.VirusTotal.IPReturn != null) &&
-              (lFidoReturnValues.FireEye.VirusTotal.IPReturn.Count > 0))
-          {
+          if (checkVirusTotalIP(lFidoReturnValues))
+                    {
             Console.WriteLine(@"Scoring Cyphort/VirusTotal detector IP information.");
             var iVTPositiveIPReturns = VirusTotalPosIPReturn(lFidoReturnValues.FireEye.VirusTotal);
             if ((iVTPositiveIPReturns[0] > 0) || (iVTPositiveIPReturns[1] > 0) || (iVTPositiveIPReturns[2] > 0))
