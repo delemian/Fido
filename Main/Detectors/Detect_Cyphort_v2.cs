@@ -40,6 +40,7 @@ namespace Fido_Main.Main.Detectors
     public static void GetCyphortAlerts()
     {
       Console.WriteLine(@"Running Cyphort v2 detector.");
+      
       //currently needed to bypass site without a valid cert.
       //todo: make ssl bypass configurable
       ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
