@@ -29,7 +29,6 @@ namespace Fido_Main.Director.Scoring
 {
   static class Matrix_Scoring
   {
-
         private static boolean checkVirusTotalURL(FidoReturnValues lFidoReturnValues)
         {
             return ((lFidoReturnValues.FireEye.VirusTotal != null) &&
@@ -37,7 +36,7 @@ namespace Fido_Main.Director.Scoring
               (lFidoReturnValues.FireEye.VirusTotal.URLReturn.Count > 0));
         }
 
-        private static boolean checkVirusTotaIP(FidoReturnValues lFidoReturnValues)
+        private static boolean checkVirusTotalIP(FidoReturnValues lFidoReturnValues)
         {
             return ((lFidoReturnValues.FireEye.VirusTotal != null) &&
               (lFidoReturnValues.FireEye.VirusTotal.IPReturn != null) &&

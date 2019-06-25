@@ -30,7 +30,7 @@ namespace Fido_Main.Notification.Email
   {
 
     //function to send email
-    public static void Send(string sTo, string sCC, string sFrom, string sSubject, string sBody, List<string> lGaugeAttachment, string sEmailAttachment)
+    public static void Send(Email email)
     {
       var sErrorEmail = Object_Fido_Configs.GetAsString("fido.email.erroremail", null);
       var sFidoEmail = Object_Fido_Configs.GetAsString("fido.email.fidoemail", null);
